@@ -108,7 +108,17 @@ def test_sigmoid(a: float) -> None:
     * It is  strictly increasing.
     """
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    #raise NotImplementedError('Need to implement for Task 0.2')
+
+    # property 1 always between 0.0 and 1.0 
+    assert 0 <= sigmoid(a) <= 1
+    # property 2 one minus sigmoid is the same as sigmoid of the negative
+    assert_close(1 - sigmoid(a), sigmoid(-a))
+    # property 3 crosses 0 at 0.5
+    assert_close(sigmoid(0), 0.5)
+    # property 4 It is  strictly increasing
+    eps = 1e-6
+    assert sigmoid(a + eps) >= sigmoid(a)
 
 
 @pytest.mark.task0_2
@@ -116,8 +126,11 @@ def test_sigmoid(a: float) -> None:
 def test_transitive(a: float, b: float, c: float) -> None:
     "Test the transitive property of less-than (a < b and b < c implies a < c)"
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
-
+    #raise NotImplementedError('Need to implement for Task 0.2')
+    if lt(a, b) and lt(b, c) == 1:
+        assert lt(a, c) == 1
+    else:
+        assert True
 
 @pytest.mark.task0_2
 def test_symmetric() -> None:
@@ -126,7 +139,8 @@ def test_symmetric() -> None:
     gives the same value regardless of the order of its input.
     """
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    #raise NotImplementedError('Need to implement for Task 0.2')
+    assert mul(1, 2) == mul(2, 1)
 
 
 @pytest.mark.task0_2
@@ -136,7 +150,8 @@ def test_distribute() -> None:
     :math:`z \times (x + y) = z \times x + z \times y`
     """
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    #raise NotImplementedError('Need to implement for Task 0.2')
+    assert mul(2,3+4) == mul(2,3) + mul(2,4)
 
 
 @pytest.mark.task0_2
@@ -145,7 +160,14 @@ def test_other() -> None:
     Write a test that ensures some other property holds for your functions.
     """
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    #raise NotImplementedError('Need to implement for Task 0.2')
+        # Negation property: -(-a) == a
+    a = 5
+    assert neg(neg(a)) == a, "Negation failed."
+    
+    # Inversion property: 1 / (1 / a) == a (if a != 0)
+    if a != 0:
+        assert inv(inv(a)) == a, f"Inversion failed for a={a}."
 
 
 # ## Task 0.3  - Higher-order functions
@@ -174,7 +196,10 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    #raise NotImplementedError('Need to implement for Task 0.3')
+    right = sum([i + j for i, j in zip(ls1,ls2)])
+    left = sum(ls1) + sum(ls2)
+    assert_close(left, right)
 
 
 @pytest.mark.task0_3
